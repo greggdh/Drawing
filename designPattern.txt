@@ -1,3 +1,2 @@
-Observer
 Iterator
 Factory Method
