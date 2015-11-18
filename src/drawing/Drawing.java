@@ -11,13 +11,30 @@ public class Drawing extends JPanel implements Iterable<Shape>, Observable{
 	private static final long serialVersionUID = 1L;
 	
 	ArrayList<Shape> shapes;
-	
+	ArrayList<Shape> selected;
 	private Collection<Observer> observers = new ArrayList<Observer>() ;
 	
 	
 	public Drawing(){
 		super();
 		shapes = new ArrayList<Shape>();
+		selected = new ArrayList<Shape>();
+	}
+	
+	public int getSelectedShapeSize(){
+		return selected.size();
+	}
+	
+	public ArrayList<Shape> getSelectedShapes(){
+		return selected;
+	}
+	
+	public void clearSelectedShapes(){
+		selected.clear();
+	}
+			
+	public void addSelectedShape(Shape s){
+		selected.add(s);
 	}
 	
 	/**
@@ -73,6 +90,27 @@ public class Drawing extends JPanel implements Iterable<Shape>, Observable{
 	public void notifyObservers() {
 		for(Observer obs : observers)
             obs.update(this);
+	}
+	
+	public void duplicate(){
+		if (selected.size() != 0){
+			for (Shape s: selected){
+				Point p = new Point(s.getOrigin());
+				p.y += 100;	
+				if (s instanceof Rectangle){
+					Rectangle r = (Rectangle) s;
+					shapes.add(new Rectangle(p, r.getWidth(), r.getHeight(), r.getColor()));
+				}
+						
+				if (s instanceof Circle){
+					Circle c = (Circle) s;
+					shapes.add(new Circle(p, c.getRadius(), c.getColor()));
+				}
+			}
+					
+			selected.clear();
+			this.repaint();
+		}
 	}
 	
 }

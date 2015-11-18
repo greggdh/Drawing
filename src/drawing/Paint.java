@@ -19,6 +19,7 @@ public class Paint implements Observer {
 	private JButton clearButton;
 	private JButton circleButton;
 	private JButton rectangleButton;
+	private JButton duplicate;
 	private JPanel buttonPanel;
 	private JPanel mainPanel;
 	private Drawing drawing;
@@ -39,11 +40,13 @@ public class Paint implements Observer {
 		clearButton = new JButton("Clear");
 		circleButton = new JButton("Circle");
 		rectangleButton = new JButton("Rectangle");
+		duplicate= new JButton("Duplicate");
 		
 		buttonPanel = new JPanel();
 		buttonPanel.add(clearButton);
 		buttonPanel.add(circleButton);
 		buttonPanel.add(rectangleButton);
+		buttonPanel.add(duplicate);
 		
 		//status
 		status = new JLabel("Numbers shapes");
@@ -64,6 +67,7 @@ public class Paint implements Observer {
 		clearButton.addActionListener(new ClearButtonListener(drawing));
 		circleButton.addActionListener(new CircleButtonListener(drawing));
 		rectangleButton.addActionListener(new RectangleButtonListener(drawing));
+		duplicate.addActionListener(new Duplication(drawing));
 		
 		//listeners pour la zone de dessin
 		DrawingMouseListener l = new DrawingMouseListener(drawing);
