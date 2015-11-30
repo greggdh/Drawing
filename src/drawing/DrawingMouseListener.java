@@ -1,5 +1,6 @@
 package drawing;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -11,6 +12,8 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 
 	Drawing drawing;
 	Shape currentShape = null;
+	int xOrigin, yOrigin;
+	
 	ArrayList<Shape> shapeList = new ArrayList<Shape>();
 	
 	public DrawingMouseListener(Drawing d){
@@ -21,22 +24,30 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 	 * Bouge la forme s�lectionn�e (si une forme est s�lectionn�e)
 	 */
 	public void mouseDragged(MouseEvent e) {
-		if(currentShape != null){
-			currentShape.setOrigin(e.getPoint());
+		int dx = e.getPoint().x - xOrigin;
+		int dy = e.getPoint().y - yOrigin;
+		if(currentShape != null &&(drawing.getSelectedShapeSize() ==0)){
+			currentShape.setOrigin(new Point(currentShape.getOrigin().x + dx, currentShape.getOrigin().y + dy));
 			drawing.repaint();
 		}
 		if(drawing.getSelectedShapeSize() != 0){
+			
 			for(Shape s: drawing.getSelectedShapes()){
-				s.setOrigin(e.getPoint());
+				s.setOrigin(new Point(s.getOrigin().x + dx, s.getOrigin().y+dy));
 				drawing.repaint();
 			}
 		}
+		xOrigin = e.getPoint().x;
+		yOrigin = e.getPoint().y;
+       
 	}
 	
 	/**
 	 * S�lectionne la forme sur laquelle l'utilisateur a cliqu�
 	 */
 	public void mousePressed(MouseEvent e) {
+		xOrigin = e.getPoint().x ;
+		yOrigin = e.getPoint().y;
 		for(Shape s : drawing){
 			if(s.isOn(e.getPoint())){
 				currentShape = s;

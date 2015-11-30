@@ -28,4 +28,7 @@ public abstract class Shape {
 	 * renvoie true si la forme occupe sur le point donn�
 	 */
 	public abstract boolean isOn(Point p);
+	
+	public abstract void setLabel(String label);
+	public abstract String getLabel();
 }

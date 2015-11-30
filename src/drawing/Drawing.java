@@ -16,11 +16,13 @@ public class Drawing extends JPanel implements Iterable<Shape>, Observable{
 	private Collection<Observer> observers = new ArrayList<Observer>() ;
 	
 	
+	
 	public Drawing(){
 		super();
 		shapes = new ArrayList<Shape>();
 		selected = new ArrayList<Shape>();
 	}
+	
 	
 	public void setIsSelect(String info){
 		this.isSelect = info;
@@ -102,6 +104,16 @@ public class Drawing extends JPanel implements Iterable<Shape>, Observable{
             obs.update(this);
 	}
 	
+	public void textShapes(String text) {
+		if(selected.size() != 0){
+			for (Shape shape: selected){
+				shape.setLabel(text);
+			}
+			selected.clear();
+			this.setIsSelect("unselected");
+			this.repaint();
+		}
+	}
 	
 	public void duplicate(){
 		if (selected.size() != 0){

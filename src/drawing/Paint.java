@@ -27,6 +27,9 @@ public class Paint implements Observer {
 	private JPanel southPanel;
 	private JLabel status;
 	private JLabel select;
+	private JButton undo;
+	private JButton redo;
+	private JButton text;
 	
 	public void run(){
 		frame = new JFrame("Paint");
@@ -43,14 +46,21 @@ public class Paint implements Observer {
 		rectangleButton = new JButton("Rectangle");
 		duplicate= new JButton("Duplicate");
 		
-
+		// text
+		text = new JButton("Text");
+		
+		//undo / redo
+		undo = new JButton("Undo");
+		redo = new JButton("Redo");
 		
 		buttonPanel = new JPanel();
 		buttonPanel.add(clearButton);
 		buttonPanel.add(circleButton);
 		buttonPanel.add(rectangleButton);
 		buttonPanel.add(duplicate);
-
+		buttonPanel.add(undo);
+		buttonPanel.add(redo);
+		buttonPanel.add(text);
 		
 		//select
 		select = new JLabel("");
@@ -76,6 +86,7 @@ public class Paint implements Observer {
 		circleButton.addActionListener(new CircleButtonListener(drawing));
 		rectangleButton.addActionListener(new RectangleButtonListener(drawing));
 		duplicate.addActionListener(new Duplication(drawing));
+		text.addActionListener(new TextButtonListener(drawing));
 		
 		//listeners pour la zone de dessin
 		DrawingMouseListener l = new DrawingMouseListener(drawing);
