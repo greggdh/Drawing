@@ -12,7 +12,7 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 
 	Drawing drawing;
 	Shape currentShape = null;
-	int xOrigin, yOrigin;
+	int xOrigin, yOrigin, nbShape =0;
 	
 	ArrayList<Shape> shapeList = new ArrayList<Shape>();
 	
@@ -76,8 +76,11 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 		if (e.getButton() == 3){
 			for(Shape s : drawing){
 				if(s.isOn(e.getPoint())){
+					if(!drawing.isOn(s)){
 					drawing.addSelectedShape(s);
-					drawing.setIsSelect("selected");
+					nbShape++;
+					drawing.setIsSelect(drawing.getSelectedShapeSize() + " "+"selected");
+					}
 				}
 			}
 		}

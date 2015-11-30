@@ -115,6 +115,15 @@ public class Drawing extends JPanel implements Iterable<Shape>, Observable{
 		}
 	}
 	
+	public boolean isOn(Shape s){
+		for(Shape shape : selected){
+			if(shape.equals(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void duplicate(){
 		if (selected.size() != 0){
 			for (Shape s: selected){
