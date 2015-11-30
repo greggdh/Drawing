@@ -53,6 +53,7 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 			currentShape = null;
 			if (drawing.getSelectedShapeSize() != 0) {
 				drawing.clearSelectedShapes();
+				drawing.setIsSelect("unselected");
 			}
 		}
 	}
@@ -65,6 +66,7 @@ public class DrawingMouseListener implements MouseMotionListener, MouseListener 
 			for(Shape s : drawing){
 				if(s.isOn(e.getPoint())){
 					drawing.addSelectedShape(s);
+					drawing.setIsSelect("selected");
 				}
 			}
 		}

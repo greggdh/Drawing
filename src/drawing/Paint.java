@@ -26,6 +26,7 @@ public class Paint implements Observer {
 	private JPanel statusPanel;
 	private JPanel southPanel;
 	private JLabel status;
+	private JLabel select;
 	
 	public void run(){
 		frame = new JFrame("Paint");
@@ -42,19 +43,26 @@ public class Paint implements Observer {
 		rectangleButton = new JButton("Rectangle");
 		duplicate= new JButton("Duplicate");
 		
+
+		
 		buttonPanel = new JPanel();
 		buttonPanel.add(clearButton);
 		buttonPanel.add(circleButton);
 		buttonPanel.add(rectangleButton);
 		buttonPanel.add(duplicate);
+
+		
+		//select
+		select = new JLabel("");
 		
 		//status
-		status = new JLabel("Numbers shapes");
+		status = new JLabel("Status");
 		
 		//statusPanel
 		statusPanel = new JPanel();
 		statusPanel.setBorder(new EtchedBorder (EtchedBorder.LOWERED));
-		statusPanel.add(status);		
+		statusPanel.add(status);	
+		statusPanel.add(select);	
 		
 		//southPanel
 		southPanel.add(buttonPanel, BorderLayout.NORTH);
@@ -90,5 +98,7 @@ public class Paint implements Observer {
 	public void update(Observable o) {
 		int nb = ((Drawing)o).counterShapes();
 		status.setText(nb + " Shapes");
+		String isSelect = ((Drawing)o).getIsSelect();
+		select.setText(" /  " + isSelect);
 	}
 }

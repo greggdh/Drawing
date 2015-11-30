@@ -10,6 +10,7 @@ public class Drawing extends JPanel implements Iterable<Shape>, Observable{
 
 	private static final long serialVersionUID = 1L;
 	
+	String isSelect = "unselected";
 	ArrayList<Shape> shapes;
 	ArrayList<Shape> selected;
 	private Collection<Observer> observers = new ArrayList<Observer>() ;
@@ -19,6 +20,15 @@ public class Drawing extends JPanel implements Iterable<Shape>, Observable{
 		super();
 		shapes = new ArrayList<Shape>();
 		selected = new ArrayList<Shape>();
+	}
+	
+	public void setIsSelect(String info){
+		this.isSelect = info;
+		this.notifyObservers();
+	}
+	
+	public String getIsSelect(){
+		return isSelect;
 	}
 	
 	public int getSelectedShapeSize(){
@@ -92,6 +102,7 @@ public class Drawing extends JPanel implements Iterable<Shape>, Observable{
             obs.update(this);
 	}
 	
+	
 	public void duplicate(){
 		if (selected.size() != 0){
 			for (Shape s: selected){
@@ -106,9 +117,9 @@ public class Drawing extends JPanel implements Iterable<Shape>, Observable{
 					Circle c = (Circle) s;
 					shapes.add(new Circle(p, c.getRadius(), c.getColor()));
 				}
-			}
-					
+			}	
 			selected.clear();
+			this.setIsSelect("unselected");
 			this.repaint();
 		}
 	}
